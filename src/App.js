@@ -32,6 +32,9 @@ class App extends Component {
       sortField
     })
   }
+  onRowSelect = row => (
+    console.log(row)
+  )
   render() {
     return (
       <div className="container">
@@ -43,6 +46,7 @@ class App extends Component {
         onSort={this.onSort}
         sort={this.state.sort}
         sortField={this.state.sortField}
+        onRowSelect={this.onRowSelect}
         />
       }
       </div>

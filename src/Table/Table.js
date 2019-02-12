@@ -23,7 +23,7 @@ export default props => (
         </thead>
         <tbody>
             { props.data.map(item =>(
-                <tr key={item.id + item.phone}>
+                <tr key={item.id + item.phone} onClick={props.onRowSelect.bind(null, item)}>
                     <td>{item.id}</td>
                     <td>{item.firstName}</td>
                     <td>{item.lastName}</td>
