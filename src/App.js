@@ -26,17 +26,12 @@ class App extends Component {
 
   }
   onSort = sortField => {
-    
     const cloneData = this.state.data.concat();
-    const sortType = this.state.sort === 'asc' ? 'desc' : 'asc';
-    const orderedData = _.orderBy(cloneData, sortField, sortType);
-
-    this.setState({
-      data: orderedData,
-      sort: sortType,
-      sortField
-    })
+    const sort = this.state.sort === 'asc' ? 'desc' : 'asc';
+    const data = _.orderBy(cloneData, sortField, sort);
+    this.setState({ data, sort, sortField })
   }
+  
   modeSelectHandler = url => {
     // console.log(url)
     this.setState({
