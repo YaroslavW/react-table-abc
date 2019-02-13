@@ -15,8 +15,8 @@ class App extends Component {
     sortField: 'id',
     row: null,
   }
-  async componentDidMount() {
-    const response = await fetch(` http://www.filltext.com/?rows=32&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}`)
+  async fetchData(url) {
+    const response = await fetch(url)
     const data = await response.json()
    
     this.setState({
@@ -37,9 +37,14 @@ class App extends Component {
       sortField
     })
   }
-  modeSelectHandler = url => (
-    console.log(url)
-  )
+  modeSelectHandler = url => {
+    // console.log(url)
+    this.setState({
+      isModeSelected: true,
+      isLoading: true,
+    })
+    this.fetchData(url)
+  }
 
   
   onRowSelect = row => (
