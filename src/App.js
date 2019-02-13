@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactPaginate from 'react-paginate';
 import Loader from './Loader/Loader';
 import Table from './Table/Table';
 import DetailRowView from './DetailRowView/DetailRowView';
@@ -31,7 +32,7 @@ class App extends Component {
     const data = _.orderBy(cloneData, sortField, sort);
     this.setState({ data, sort, sortField })
   }
-  
+
   modeSelectHandler = url => {
     // console.log(url)
     this.setState({
@@ -45,7 +46,13 @@ class App extends Component {
   onRowSelect = row => (
     this.setState({row})
   )
+
+  pageChangeHandler = page => (
+    console.log(page)
+  )
+
   render() {
+    const pageSize = 50;
     if(!this.state.isModeSelected){
       return (
         <div className="container">
@@ -66,6 +73,29 @@ class App extends Component {
         onRowSelect={this.onRowSelect}
         />
       }
+
+      {
+        this.state.data.length > pageSize
+        ? <ReactPaginate
+        previousLabel={'<'}
+        nextLabel={'>'}
+        breakLabel={'...'}
+        breakClassName={'break-me'}
+        pageCount={20}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={this.pageChangeHandler}
+        containerClassName={'pagination'}
+        activeClassName={'active'}
+        pageClassName="page-item"
+        pageLinkClassName="page-link"
+        previousClassName="page-item"
+        nextClassName="page-item"
+        previousLinkClassName="page-link"
+        nextLinkClassName="page-link"
+      /> : null
+      }
+
       {
         this.state.row ? <DetailRowView person={this.state.row} /> : null
       }
