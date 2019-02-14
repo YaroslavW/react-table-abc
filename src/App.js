@@ -53,6 +53,9 @@ class App extends Component {
     this.setState({currentPage: selected})
   )
 
+  searchHandler = search =>(
+    console.log(search)
+  )
   render() {
     const pageSize = 50;
     if(!this.state.isModeSelected){
@@ -69,7 +72,7 @@ class App extends Component {
         this.state.isLoading 
         ? <Loader />
         : <React.Fragment>
-            <TableSearch />
+            <TableSearch onSearch={this.searchHandler}/>
             <Table 
               data={displayData}
               onSort={this.onSort}

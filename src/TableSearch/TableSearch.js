@@ -1,13 +1,24 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-export default () => {
+export default props => {
+    const [value, setValue] = useState('')
+    const valueChangeHandler = event => {
+        setValue(event.target.value)
+      }
 
     return (
         <div className="input-group mb-3 mt-3">
              <div className="input-group-prepend">
-                 <button className="btn btn-outline-secondary" >Search</button>
+                 <button 
+                    className="btn btn-outline-secondary"
+                    onClick={() => props.onSearch(value)} >Search</button>
             </div>
-             <input type="text" className="form-control" />
+            <input 
+                type="text" 
+                className="form-control"
+                onChange={valueChangeHandler} 
+                value={value}
+            />
         </div>
     )
 }
