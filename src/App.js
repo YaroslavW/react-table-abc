@@ -15,6 +15,7 @@ class App extends Component {
     sort: 'asc',  // 'desc'
     sortField: 'id',
     row: null,
+    currentPage: 0,
   }
   async fetchData(url) {
     const response = await fetch(url)
@@ -47,8 +48,8 @@ class App extends Component {
     this.setState({row})
   )
 
-  pageChangeHandler = page => (
-    console.log(page)
+  pageChangeHandler = ({selected}) => (
+    this.setState({currentPage: selected})
   )
 
   render() {
@@ -60,13 +61,14 @@ class App extends Component {
         </div>
       )
     }
+    const displayData = _.chunk(this.state.data, pageSize)[this.state.currentPage]
     return (
       <div className="container">
       {
         this.state.isLoading 
         ? <Loader />
         : <Table 
-        data={this.state.data}
+        data={displayData}
         onSort={this.onSort}
         sort={this.state.sort}
         sortField={this.state.sortField}
