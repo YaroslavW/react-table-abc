@@ -13,6 +13,7 @@ class App extends Component {
     isModeSelected: false,
     isLoading: false,
     data: [],
+    search: '',
     sort: 'asc',  // 'desc'
     sortField: 'id',
     row: null,
@@ -53,9 +54,24 @@ class App extends Component {
     this.setState({currentPage: selected})
   )
 
-  searchHandler = search =>(
-    console.log(search)
-  )
+  searchHandler = search => {
+    this.setState({search, currentPage: 0})
+  }
+
+  getFilteredData(){
+    const {data, search} = this.state
+
+    if (!search) {
+      return data
+    }
+
+    return data.filter(item => {
+      return item['firstName'].toLowerCase().includes(search.toLowerCase())
+        || item['lastName'].toLowerCase().includes(search.toLowerCase())
+        || item['email'].toLowerCase().includes(search.toLowerCase())
+    })
+  }
+
   render() {
     const pageSize = 50;
     if(!this.state.isModeSelected){
@@ -65,7 +81,10 @@ class App extends Component {
         </div>
       )
     }
-    const displayData = _.chunk(this.state.data, pageSize)[this.state.currentPage]
+    const filteredData = this.getFilteredData()
+    // debugger
+    const pageCount = Math.ceil(filteredData.length / pageSize)
+    const displayData = _.chunk(filteredData, pageSize)[this.state.currentPage]
     return (
       <div className="container">
       {
@@ -91,7 +110,7 @@ class App extends Component {
         nextLabel={'>'}
         breakLabel={'...'}
         breakClassName={'break-me'}
-        pageCount={20}
+        pageCount={pageCount}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         onPageChange={this.pageChangeHandler}
