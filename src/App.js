@@ -4,6 +4,7 @@ import Loader from './Loader/Loader';
 import Table from './Table/Table';
 import DetailRowView from './DetailRowView/DetailRowView';
 import ModeSelector from './ModeSelector/ModeSelector';
+import TableSearch from './TableSearch/TableSearch';
 import _ from 'lodash';
 
 
@@ -67,13 +68,17 @@ class App extends Component {
       {
         this.state.isLoading 
         ? <Loader />
-        : <Table 
-        data={displayData}
-        onSort={this.onSort}
-        sort={this.state.sort}
-        sortField={this.state.sortField}
-        onRowSelect={this.onRowSelect}
-        />
+        : <React.Fragment>
+            <TableSearch />
+            <Table 
+              data={displayData}
+              onSort={this.onSort}
+              sort={this.state.sort}
+              sortField={this.state.sortField}
+              onRowSelect={this.onRowSelect}
+            />
+          </React.Fragment>
+
       }
 
       {
