@@ -95,6 +95,7 @@ class App extends Component {
         nextClassName="page-item"
         previousLinkClassName="page-link"
         nextLinkClassName="page-link"
+        forcePage={this.state.currentPage}
       /> : null
       }
 
