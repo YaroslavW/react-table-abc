@@ -64,7 +64,7 @@ class App extends Component {
     if (!search) {
       return data
     }
-
+   
     return data.filter(item => {
       return item['firstName'].toLowerCase().includes(search.toLowerCase())
         || item['lastName'].toLowerCase().includes(search.toLowerCase())
@@ -81,7 +81,8 @@ class App extends Component {
         </div>
       )
     }
-    const filteredData = this.getFilteredData()
+   
+    const filteredData = this.getFilteredData();
     // debugger
     const pageCount = Math.ceil(filteredData.length / pageSize)
     const displayData = _.chunk(filteredData, pageSize)[this.state.currentPage]
