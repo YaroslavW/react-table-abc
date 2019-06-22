@@ -64,12 +64,17 @@ class App extends Component {
     if (!search) {
       return data
     }
-   
-    return data.filter(item => {
-      return item['firstName'].toLowerCase().includes(search.toLowerCase())
-        || item['lastName'].toLowerCase().includes(search.toLowerCase())
-        || item['email'].toLowerCase().includes(search.toLowerCase())
-    })
+   var result = data.filter(item => {
+     return (
+       item["firstName"].toLowerCase().includes(search.toLowerCase()) ||
+       item["lastName"].toLowerCase().includes(search.toLowerCase()) ||
+       item["email"].toLowerCase().includes(search.toLowerCase())
+     );
+   });
+   if(!result.length){
+     result = this.state.data
+   }
+    return result
   }
 
   render() {
